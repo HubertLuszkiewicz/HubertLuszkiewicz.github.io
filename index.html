@@ -15,20 +15,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=TASA+Explorer:wght@400..800&display=swap" rel="stylesheet">
-    <title>Hubert Łuszkiewicz - Software Engineer</title>
+    <title>Hubert Łuszkiewicz - Data Engineer</title>
   </head>
   <body class="bg-dark">
     <style>
         :root {
-            --main-color: #ff5231;
-            --bg-color: #141414;
-            --navbar-color: rgba(40, 40, 40, 0.99)
+            --main-color: #56c7b2;
+            --bg-color: #0b1220;
+            --surface-color: #111c2d;
+            --muted-color: #9aa9bb;
+            --navbar-color: rgba(11, 18, 32, 0.97)
         }
 
         :root[theme='light'] {
-            --main-color: #ff5231;
-            --bg-color: #ffffff;
-            --navbar-color: #ffffff
+            --main-color: #087f73;
+            --bg-color: #f4f7f6;
+            --surface-color: #ffffff;
+            --muted-color: #52616f;
+            --navbar-color: rgba(244, 247, 246, 0.97)
         }
         
         /* html, body {
@@ -48,7 +52,7 @@
         }
 
         .navbar-small-start-bg {
-            background-color: #282828 !important;
+            background-color: var(--surface-color) !important;
         }
         
         .navbar.scrolled {
@@ -77,22 +81,26 @@
             overflow: hidden;
         }
 
+        #projects, #contact {
+            background-color: var(--bg-color) !important;
+        }
+
         #projects {
-            border-top-color: #ff5231;
+            border-top-color: var(--main-color);
            
             border-top-width: 1px;
             border-top-style: solid;
         }
 
         #about {
-            border-top-color: #ff5231;
+            border-top-color: var(--main-color);
             
             border-top-width: 1px;
             border-top-style: solid;
         }
 
         #contact {
-            border-top-color: #ff5231;
+            border-top-color: var(--main-color);
             border-top-style: solid;
             border-top-width: 1px;
         }
@@ -100,24 +108,24 @@
         .hello-text, .software-engineer-text {
             transform: translateX(0);
             /* transition: transform 1.6s ease-in-out; */
-            font-size: 7vw;
+            font-size: clamp(2.6rem, 5vw, 4.8rem);
         }
 
         @media screen and (min-width: 576px) {
             .hello-text, .software-engineer-text {
-                font-size: 4vw;
+                font-size: clamp(2.8rem, 4vw, 4.5rem);
             }
         }
 
         @media screen and (min-width: 768px) {
             .hello-text, .software-engineer-text {
-                font-size: 4vw;
+                font-size: clamp(3rem, 3.6vw, 4.25rem);
             }
         }
 
         @media screen and (min-width: 992px) {
             .hello-text, .software-engineer-text {
-                font-size: 4vw;
+                font-size: clamp(3.2rem, 3.4vw, 4rem);
             }
         }
 
@@ -126,6 +134,13 @@
         .red-text {
             color: var(--main-color);
             font-weight: 600;
+        }
+
+        .hero-description {
+            max-width: 36rem;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: clamp(1rem, 1.5vw, 1.35rem);
+            line-height: 1.55;
         }
 
         .check-me-out-button {
@@ -140,6 +155,18 @@
             padding-right: 20px;
             background-color: var(--main-color);
             color: white;
+        }
+
+        .card {
+            background-color: var(--surface-color) !important;
+            background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.035), transparent 45%) !important;
+            border: 1px solid rgba(154, 169, 187, 0.18);
+        }
+
+        .card-subtitle,
+        .experience-date,
+        .experience-role span {
+            color: var(--muted-color) !important;
         }
 
         .arrow-down {
@@ -209,6 +236,10 @@
             transition: all 0.4s ease;
         }
 
+        .card-img-wrapper {
+            height: 13rem !important;
+        }
+
         /* .card-img-top:hover {
             opacity: 0.6;
         } */
@@ -222,6 +253,98 @@
             background-position: right;
             background-size: contain;
             background-repeat: no-repeat;
+        }
+
+        .experience-timeline {
+            position: relative;
+            display: grid;
+            gap: 1.25rem;
+        }
+
+        .experience-item {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 1.5rem minmax(0, 1fr);
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .experience-item:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 0.75rem;
+            bottom: -1.25rem;
+            left: 50%;
+            width: 1px;
+            background-color: rgba(154, 169, 187, 0.55);
+            transform: translateX(-50%);
+        }
+
+        .experience-date {
+            padding-top: 0.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        .experience-marker {
+            position: relative;
+            z-index: 1;
+            width: 0.75rem;
+            height: 0.75rem;
+            margin: 0.35rem auto 0;
+            border: 2px solid var(--main-color);
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            box-shadow: 0 0 0 4px rgba(86, 199, 178, 0.14);
+        }
+
+        .experience-role {
+            padding: 0.1rem 0 0.9rem 1rem;
+            border-left: 2px solid var(--main-color);
+            text-align: start;
+        }
+
+        .experience-role strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .experience-role span {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.9rem;
+        }
+
+        @media screen and (max-width: 575px) {
+            .experience-item {
+                grid-template-columns: 1.5rem minmax(0, 1fr);
+                gap: 0.75rem;
+            }
+
+            .experience-date {
+                grid-column: 2;
+                padding-top: 0;
+                text-align: left;
+            }
+
+            .experience-marker {
+                grid-column: 1;
+                grid-row: 1 / span 2;
+                margin-left: 0;
+            }
+
+            .experience-item:not(:last-child)::after {
+                top: 0.75rem;
+                bottom: -0.75rem;
+                left: 0.375rem;
+                transform: translateX(-50%);
+            }
+
+            .experience-role {
+                grid-column: 2;
+                padding-left: 0;
+                border-left: 0;
+            }
         }
 
 
@@ -276,24 +399,26 @@
             transition: all 0.35s ease;
         }
         .social-media-icon-container:hover {
-            box-shadow: 0px 2px 4px #ff5231;
+            box-shadow: 0px 2px 4px rgba(86, 199, 178, 0.35);
         }
 
         .social-media-icon {
-            width: 70%;
+            width: 68%;
+            max-width: 5rem;
         }
 
         @media screen  and (min-width: 768px){
             .social-media-icon {
-                width: 50%;
+                width: 62%;
             }
         }
 
         @media screen  and (min-width: 992px){
             .social-media-icon {
-                width: 70%;
+                width: 68%;
             }
         }
+
 
         
 
@@ -343,30 +468,31 @@
             }
             
         }
+
     </style>
 
     <nav class="navbar navbar-expand-lg fixed-top py-3 shadow-sm" data-bs-theme="dark">
         <div class="container">
-            <a class="navbar-brand nav-text navtop-text" href="#home">Hubert Łuszkiewicz</a>
+            <a class="navbar-brand nav-text navtop-text" href="#home" data-i18n="brand">Hubert Łuszkiewicz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
-                        <a class="home-button nav-link nav-text navtop-text active" href="#home">Strona główna</a>
+                        <a class="home-button nav-link nav-text navtop-text active" href="#home" data-i18n="navHome">Strona główna</a>
                     </li>
                     <li class="nav-item">
-                        <a class="about-button nav-link nav-text navtop-text" href="#about">O mnie</a>
+                        <a class="about-button nav-link nav-text navtop-text" href="#about" data-i18n="navAbout">O mnie</a>
                     </li>
                     <li class="nav-item">
-                        <a class="projects-button nav-link nav-text navtop-text" href="#projects">Projekty</a>
+                        <a class="projects-button nav-link nav-text navtop-text" href="#projects" data-i18n="navProjects">Projekty</a>
                     </li>
                     <li class="nav-item">
-                        <a class="contact-button nav-link nav-text navtop-text" href="#contact">Kontakt</a>
+                        <a class="contact-button nav-link nav-text navtop-text" href="#contact" data-i18n="navContact">Kontakt</a>
                     </li>
                     <li class="nav-item">
-                        <a class="d-none language-button btn nav-text navtop-text">🇵🇱</a>
+                        <a class="language-button btn nav-text navtop-text" role="button" aria-label="Change language">EN</a>
                     </li>
                     <li>
                         <a class="d-none theme-button btn nav-text navtop-text">
@@ -378,9 +504,9 @@
         </div>
     </nav>
 
-    <section class="home min-vh-100 d-flex flex-column justify-content-end justify-content-sm-around" id="home" style="z-index: 1; box-shadow: 0px 2px 5px #ff5231;">
+    <section class="home min-vh-100 d-flex flex-column justify-content-end justify-content-sm-around" id="home" style="z-index: 1; box-shadow: 0px 2px 5px rgba(86, 199, 178, 0.35);">
         <div style="position: absolute; height: 100%; width: 100%; top: 0; opacity: 0.5;" class="d-sm-none">
-            <img src="images/7b99ed38-ad3b-4070-9b6c-c30b4c901d79.jpg" alt="" style="object-fit: cover; object-position: top; width: 100%; height: 100%;">
+            <img src="images/me_engineer.png" alt="" style="object-fit: cover; object-position: top; width: 100%; height: 100%;">
         </div>
         <!-- <div class="d-flex justify-content-center">
             <div class="d-sm-none" style="border-radius: 100%; width: 55%; aspect-ratio: 1 / 1; display: flex; border-radius: 100%; overflow: hidden;">
@@ -399,19 +525,16 @@
                 </div> -->
                 <div class="text-start text-white p-1 mb-3" >
                     <div class="hello-text-container d-flex justify-content-start">
-                        <h1 style="text-shadow: 0px 2px 4px rgba(0,0,0,1)" class=" display-4"><span class="red-text">&lt</span></h1>
+                        <h1 style="text-shadow: 0px 2px 4px rgba(0,0,0,1)" class="hello-text h3" data-i18n="greeting">Cześć,</h1>
                     </div>
                     <div class="hello-text-container d-flex justify-content-start">
-                        <h1 style="text-shadow: 0px 2px 4px rgba(0,0,0,1)" class="hello-text h3">Cześć,</h1>
-                    </div>
-                    <div class="hello-text-container d-flex justify-content-start">
-                        <h1 style="text-shadow: 0px 2px 4px rgba(0,0,0,1)" class="hello-text h3">jestem Hubert 👋</h1>
+                        <h1 style="text-shadow: 0px 2px 4px rgba(0,0,0,1)" class="hello-text h3" data-i18n="introduction">jestem Hubert</h1>
                     </div>
                     <div class="software-engineer-text-container d-flex justify-content-start">
-                        <p class="software-engineer-text display-4 m-0" style="text-shadow: 0px 2px 4px rgba(0,0,0,1);">Software Engineer</p>
+                        <p class="software-engineer-text display-4 m-0" style="text-shadow: 0px 2px 4px rgba(0,0,0,1);" data-i18n="jobTitle">Data Engineer</p>
                     </div>
                     <div class="software-engineer-text-container d-flex justify-content-start">
-                        <p class=" display-6 m-0" style="text-shadow: 0px 2px 4px rgba(0,0,0,1);"><span class="red-text">/&gt</span></p>
+                        <p class="hero-description m-0" data-i18n="heroDescription">Buduję skalowalne procesy danych w chmurze, wykorzystując Azure Databricks, PySpark i SQL.</p>
                     </div>
                 </div>
                 <div class="row pb-4 d-flex justify-content-start">
@@ -440,9 +563,9 @@
                 <div class="d-flex justify-content-center">
                     <div class="col-12">
                         <div class="d-flex justify-content-start pb-5 pb-sm-0">
-                            <a class="btn check-me-out-button mt-2" href="#projects" style="box-shadow: 0px 2px 4px #ff5231">
+                            <a class="btn check-me-out-button mt-2" href="#about" style="box-shadow: 0px 2px 4px rgba(86, 199, 178, 0.35)">
                                 <h5 class="mb-0" style="text-shadow: 0px 2px 4px rgba(0,0,0,1); font-weight: bold;">
-                                    <span class="arrow-down">➜</span> Moje Projekty <span class="arrow-down"> ➜</span>
+                                    <span class="arrow-down">➜</span> <span data-i18n="experienceCta">Poznaj moje doświadczenie</span> <span class="arrow-down"> ➜</span>
                                 </h5>
                             </a>
                         </div>
@@ -454,109 +577,56 @@
         
         
         <div class="d-none d-sm-flex" style="position: absolute; top: 0rem; right: 0; z-index: 1;">
-            <img src="images/7b99ed38-ad3b-4070-9b6c-c30b4c901d79.jpg" alt="" style="width: 40vw; height: 100vh; object-fit: cover; opacity: 0.6;">
+            <img src="images/me_engineer.png" alt="" style="width: 40vw; height: 100vh; object-fit: cover; opacity: 0.6;">
         </div>
+
         
     </section>
 
-    <section class="about d-flex align-items-start" id="about" style="box-shadow: 0px 2px 5px #ff5231;">
+    <section class="about d-flex align-items-start" id="about" style="box-shadow: 0px 2px 5px rgba(86, 199, 178, 0.35);">
         <div class="container text-start text-white" style="z-index: 2;">
-            <div class="d-flex justify-content-center pt-4 pb-4 pb-md-4">
-                <h1 class="section-header display-5" style="text-align: start;">O <span id="pro-text">mnie</span></h1>
+            <div class="d-flex justify-content-center pt-4 pb-0">
+                <h1 class="section-header display-5" style="text-align: start;"><span data-i18n="aboutPrefix">O</span> <span id="pro-text" data-i18n="aboutLabel">mnie</span></h1>
             </div>
             <div class="row align-items-center justify-content-around">
                 <div class="col-md-6 col-lg-5 text-center mb-4 d-flex flex-column align-items-center">
                     <div class="mb-5 pt-4" style="flex: 1; position: relative;">
                         <h4 class="fw-bolder pb-4" style="text-align: start;">
-                            Kilka słów o mnie
+                            <span data-i18n="aboutIntroHeading">Kilka słów o mnie</span>
                         </h4>
                         <div style="z-index: 2; text-align: start;">
-                            Jestem full-stack developerem z pasją do przetwarzania danych, 
-                            Machine Learning'u i AI. Praca z danymi jest moją najmocniejszą stroną.
-                            Mój ulubiony język programowania to Python.
+                            <span data-i18n="aboutIntro">Jestem Data Engineerem, który rozwija się w kierunku architektury danych i inżynierii chmurowej. Mam rok komercyjnego doświadczenia w pracy z danymi.</span>
+                            <br/>
+                            <span data-i18n="aboutWork">Na co dzień zajmuję się budowaniem skalowalnych procesów ETL z wykorzystaniem Azure Databricks, PySpark i SQL. Pracuję z dużymi i złożonymi zbiorami danych, przekształcając je w uporządkowane i wartościowe informacje, które wspierają podejmowanie decyzji biznesowych.</span>
+                            <br/>
+                            <span data-i18n="aboutEducation">Wykształcenie zdobyłem na Politechnice Poznańskiej, gdzie ukończyłem studia na kierunku Informatyka.</span>
                         </div>
                         
                     </div>
                     <div class="aboutme-image-container pt-4 mt-5 mb-sm-5" style="flex: 1">
                         <h4 class="fw-bolder pb-4 pt-4" style="text-align: start;">
-                            Wykształcenie 👨‍🎓
+                            <span data-i18n="experienceHeading">Doświadczenie</span>
                         </h4>
-                        <div class="row justify-content-around">
-                            <div class="col-1">
-                                <div>
-                                    10.2021
+                        <div class="experience-timeline">
+                            <div class="experience-item">
+                                <div class="experience-date">04.2026 - <span data-i18n="present">obecnie</span></div>
+                                <div class="experience-marker"></div>
+                                <div class="experience-role">
+                                    <strong data-i18n="dataEngineerRole">Data Engineer</strong>
+                                    <span data-i18n="cloudfide">Cloudfide</span>
                                 </div>
                             </div>
-                            <div class="col-1 d-flex flex-column align-items-center">
-                                <div>
-                                    ●
-                                </div>
-                            <div style="height: 14rem; width: 0px; border-style: solid; border-width: 1px;"></div>
-                            </div>
-                            <div class="col-6">
-                                <div style="text-align: start;">
-                                    Rozpoczęcie studiów Inżynierskich na Politechnice Poznańskiej [Informatyka]
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row justify-content-around">
-                            <div class="col-1">
-                                <div>
-                                    02.2025
+                            <div class="experience-item">
+                                <div class="experience-date">10.2025 - 03.2026</div>
+                                <div class="experience-marker"></div>
+                                <div class="experience-role">
+                                    <strong data-i18n="dataSupportRole">Data Support Engineer</strong>
+                                    <span data-i18n="cloudfide">Cloudfide</span>
                                 </div>
                             </div>
-                            <div class="col-1 d-flex flex-column align-items-center">
-                                <div>
-                                    ●
-                                </div>
-                                <div style="height: 3rem; width: 0px; border-style: solid; border-width: 1px;"></div>
-                            </div>
-                            <div class="col-6">
-                                <div style="text-align: start;">
-                                    Obrona pracy inżynierskiej 
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row justify-content-around">
-                            <div class="col-1">
-                                <div>
-                                    03.2025
-                                </div>
-                            </div>
-                            <div class="col-1 d-flex flex-column align-items-center">
-                                <div>
-                                    ●
-                                </div>
-                                <div style="height: 6rem; width: 0px; border-style: solid; border-width: 1px;"></div>
-                            </div>
-                            <div class="col-6">
-                                <div style="text-align: start;">
-                                    Rozpoczęcie studiów Magisterskich <br>[Technologie Przetwarzania Danych]
-                                </div>
-                            </div>
                         </div>
-
-                        <div class="row justify-content-around">
-                            <div class="col-1">
-                                <div>
-                                    07.2026
-                                </div>
-                            </div>
-                            <div class="col-1 d-flex flex-column align-items-center">
-                                <div>
-                                    ●
-                                </div>
-                                
-                            </div>
-                            <div class="col-6">
-                                <div style="text-align: start;">
-                                    Przewidywana data ukończenia studiów
-                                </div>
-                            </div>
-                        </div>
-                        
                     </div>
                 </div>
                 
@@ -565,34 +635,19 @@
                     <div class="pt-4 mb-5" style="flex: 1">
                         
                         <h4 class="fw-bolder pb-4 mt-5 pt-5" style="text-align: start;">
-                            Umiejętności 💻
+                            <span data-i18n="skillsHeading">Umiejętności 💻</span>
                         </h4>
                         <div>
                             <ul style="z-index: 2; position: relative;" class="skills-list">
-                                <li class="pb-3">
-                                    Tworzenie modeli uczenia maszynowego z użyciem Pythona i bibliotek: scikit-learn,
-                                    pandas, numpy.
-                                </li>
-                                <li class="pb-3">
-                                    Przygotowanie danych do analizy: eliminacja obserwacji odstających, wybór
-                                    atrybutów, zastąpienie wartości pustych.
-                                </li>
-                                <li class="pb-3">
-                                    Podstawy przetwarzania Big Data: Tworzyłem skrypty wykorzystujące
-                                    Apache Spark w przetwarzaniu batchowym, jak również strumieniowym (Spark Structured Streaming,
-                                    Kafka). 
-                                </li>
-                                <li class="pb-3">
-                                    Podstawy przetwarzania w Chmurze: Tworzyłem i uruchamiałem programy na maszynach wirtualnych z użyciem GCP.
-                                </li>
-                                <li class="pb-3">
-                                    Konteneryzacja z użyciem Dockera.
-                                </li>
-                                <li class="pb-3">
-                                    Git i GitHub
-                                </li>
-                                <li class="pb-3">Tworzenie endpointów i komunikacja z użyciem Rest API</li>
-                                <li class="pb-3">Tworzenie stron internetowych z użyciem React lub HTML/CSS/JS + Bootstrap</li>
+                                <li class="pb-3"><strong>Azure Databricks</strong> <span data-i18n="skillDatabricks">- Buduję procesy przetwarzania danych w środowisku chmurowym Azure.</span></li>
+                                <li class="pb-3"><strong>PySpark</strong> <span data-i18n="skillPyspark">- Wykorzystuję go do rozproszonego przetwarzania dużych zbiorów danych.</span></li>
+                                <li class="pb-3"><strong>Python</strong> <span data-i18n="skillPython">- Wykorzystuję go do automatyzacji zadań oraz tworzenia procesów przetwarzania danych.</span></li>
+                                <li class="pb-3"><strong>SQL</strong> <span data-i18n="skillSql">- Tworzę zapytania, transformacje i rozwiązania do pracy z bazami danych.</span></li>
+                                <li class="pb-3"><strong>Big Data</strong> <span data-i18n="skillBigData">- Pracuję z dużymi zbiorami danych i skalowalnymi rozwiązaniami.</span></li>
+                                <li class="pb-3"><strong>ETL</strong> <span data-i18n="skillEtl">- Projektuję procesy ekstrakcji, transformacji i ładowania danych.</span></li>
+                                <li class="pb-3"><strong>Ładowanie danych</strong> <span data-i18n="skillLoading">- Przygotowuję i zasilam hurtownie oraz systemy docelowe.</span></li>
+                                <li class="pb-3"><strong>Git/Github</strong> <span data-i18n="skillGit">- Wykorzystuję je do zarządzania kodem źródłowym i współpracy zespołowej.</span></li>
+                                
                             </ul>
                             
                         </div>
@@ -601,18 +656,16 @@
                     <div class="pt-4 mt-5" style="flex: 1; position: relative; z-index: 2;">
                         <div style="z-index: 2; position: relative">
                             <h4 class="fw-bolder pb-4" style="text-align: start;">
-                            Zainteresowania 🏃🚴
+                            <span data-i18n="interestsHeading">Zainteresowania 🏃🚴</span>
                         </h4>
                         <div style="z-index: 2; text-align: start;">
-                            Interesuje się sztuczną inteligencją. Jestem aktywnym członkiem koła naukowego Ghost, gdzie poszerzam swoje horyzonty.
+                            <span data-i18n="interestsAi">Interesuję się sztuczną inteligencją. Jestem aktywnym członkiem koła naukowego Ghost, gdzie poszerzam swoje horyzonty.</span>
                             <br>
                             <div class="pb-3"></div>
-                            W wolnych chwilach pasjonuje mnie aktywność fizyczna. Uprawiam sporty wytrzymałościowe:
-                            bieganie, pływanie oraz kolarstwo. Moje poczynania w tej kwestii można śledzić w aplikacji <a style="color: #fc5200;" href="https://www.strava.com/athletes/91354575">Strava.</a></span>
+                            <span data-i18n="interestsSport">W wolnych chwilach pasjonuje mnie aktywność fizyczna. Uprawiam sporty wytrzymałościowe: bieganie, pływanie oraz kolarstwo. Moje poczynania w tej kwestii można śledzić w aplikacji</span> <a style="color: var(--main-color);" href="https://www.strava.com/athletes/91354575">Strava.</a>
                             <br>
                             <div class="pb-3"></div>
-                            Od 2 latach wraz ze znajomymi jeździmy na kolarskie wyprawy bikepackingowe. Mamy za sobą trasę
-                            ze Szczecina 🇵🇱 do Amsterdamu 🇳🇱 oraz z Oslo 🇳🇴 do Trelleborga 🇸🇪.
+                            <span data-i18n="interestsTravel">Od dwóch lat wraz ze znajomymi jeździmy na kolarskie wyprawy bikepackingowe. Mamy za sobą trasę ze Szczecina 🇵🇱 do Amsterdamu 🇳🇱 oraz z Oslo 🇳🇴 do Trelleborga 🇸🇪.</span>
                         </div>
                         </div>
                         
@@ -627,10 +680,10 @@
             </div>
         </div>
     </section>
-    <section class="projects d-flex align-items-center bg-black" id="projects" style="z-index: 2; box-shadow: 0px 2px 5px #ff5231;">
+    <section class="projects d-flex align-items-center bg-black" id="projects" style="z-index: 2; box-shadow: 0px 2px 5px rgba(86, 199, 178, 0.35);">
         <div class="container text-start text-white" style="z-index: 2;">
             <div class="section-header-container d-flex justify-content-center py-4 mb-4 display-5">
-                <h1 class="display-6 section-header">Moje <span id="pro-text">Pro</span>jekty</h1>
+                <h1 class="display-6 section-header"><span data-i18n="projectsPrefix">Moje</span> <span id="pro-text" data-i18n="projectsAccent">Pro</span><span data-i18n="projectsSuffix">jekty</span></h1>
             </div>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
@@ -641,8 +694,8 @@
                             <img class="card-img-top" src="images/personal-notes-chatbot.png" alt="Project icon" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bolder">Personal Notes Chatbot</h5>
-                            <p class="card-subtitle">
+                            <h5 class="card-title fw-bolder" data-i18n="projectNotesTitle">Personal Notes Chatbot</h5>
+                            <p class="card-subtitle" data-i18n="projectNotesDescription">
                                 Stworzyłem chatbota służacego do wyszukiwania informacji w osobistych notatkach. Wykorzystałem RAG, API modelu językowego od Google - Gemini, a także bazę danych PostgreSQL z rozszerzeniem Pgvector do przechowywania embeddingów. Projekt zaprezentowałem na spotkaniu koła naukowego.
                             </p>
                             <div class="card-icons-container pt-2">
@@ -668,7 +721,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/PersonalNotesChatbot" class="btn check-me-out-button">Otwórz na GitHubie</a>
+                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/PersonalNotesChatbot" class="btn check-me-out-button" data-i18n="githubButton">Otwórz na GitHubie</a>
                         </div>
                     </div>
                 </div>
@@ -680,8 +733,8 @@
                             <img class="card-img-top" src="images/ocr-system.png" alt="Card image cap" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bolder">OCR System</h5>
-                            <p class="card-subtitle">
+                            <h5 class="card-title fw-bolder" data-i18n="projectOcrTitle">OCR System</h5>
+                            <p class="card-subtitle" data-i18n="projectOcrDescription">
                                 Współtworzyłem system do rozpoznawania znaków w dokumentach PDF i na zdjęciach. Stworzyłem własy model ML do ekstrakcji tekstu z dokumentów PDF. Projekt realizowany dla Komisji Nadzoru Finansowego, a także jako zaliczenie przedmiotu Hurtownie Danych.
                             </p>
                             <div class="card-icons-container pt-2">
@@ -707,7 +760,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/RemoteControlledCar" class="btn check-me-out-button">Otwórz na GitHubie</a>
+                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/RemoteControlledCar" class="btn check-me-out-button" data-i18n="githubButton">Otwórz na GitHubie</a>
                         </div>
                     </div>
                 </div>
@@ -718,11 +771,9 @@
                             <img class="card-img-top" src="images/nawigatorpp.png" alt="Card image cap" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bolder">Aplikacja do nawigacji po kampusie</h5>
-                            <p class="card-subtitle">
-                                Moja praca inżynierska polegała na stworzeniu aplikacji mobilnej służącej do nawigacji po terenie kampusu Politechniki Poznańskiej. 
-                                Aplikacja wykorzystuje GPS do lokalizacji użytkownika i wskazuje drogę do wybranego budynku, a także AR do nawigacji wewnątrz budynków.
-                                Projekt zrealizowałem wraz z trzema kolegami z roku. Byłem odpowiedzialny za implementację UI oraz integrację bazy danych na urządzeniu z zewnętrzną na serwerze.
+                            <h5 class="card-title fw-bolder" data-i18n="projectCampusTitle">Aplikacja do nawigacji po kampusie</h5>
+                            <p class="card-subtitle" data-i18n="projectCampusDescription">
+                                Moja praca inżynierska polegała na stworzeniu aplikacji mobilnej służącej do nawigacji po terenie kampusu Politechniki Poznańskiej. Aplikacja wykorzystuje GPS do lokalizacji użytkownika i wskazuje drogę do wybranego budynku, a także AR do nawigacji wewnątrz budynków. Projekt zrealizowałem wraz z trzema kolegami z roku. Byłem odpowiedzialny za implementację UI oraz integrację bazy danych na urządzeniu z zewnętrzną na serwerze.
                             </p>
                             <div class="card-icons-container pt-2">
                                 <a href="https://reactnative.dev/" target="_blank" class="btn d-inline ps-0">
@@ -756,11 +807,9 @@
                             <img class="card-img-top" src="images/retina-detection.JPG" alt="Card image cap" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bolder">Retina Detect</h5>
-                            <p class="card-subtitle">
-                                Ten projekt to moja pierwsza styczność z przetwarzaniem obrazu. 
-                                Zadanie polegało na wykrywaniu naczyń krwionośnych na obrazach dna oka z wykorzystaniem Uczenia Maszynowego i technik przetwarzania obrazu.
-                                Powyższa ilustracjia przedstawia jeden z przykładowych obrazów, które przetwarzałem.
+                            <h5 class="card-title fw-bolder" data-i18n="projectRetinaTitle">Retina Detect</h5>
+                            <p class="card-subtitle" data-i18n="projectRetinaDescription">
+                                Ten projekt to moja pierwsza styczność z przetwarzaniem obrazu. Zadanie polegało na wykrywaniu naczyń krwionośnych na obrazach dna oka z wykorzystaniem Uczenia Maszynowego i technik przetwarzania obrazu. Powyższa ilustracja przedstawia jeden z przykładowych obrazów, które przetwarzałem.
                             </p>
                             <div class="card-icons-container pt-2">
                                 <a href="https://www.python.org/" target="_blank" class="btn d-inline ps-0">
@@ -785,7 +834,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/RetinaDetect" class="btn check-me-out-button">Otwórz na GitHubie</a>
+                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/RetinaDetect" class="btn check-me-out-button" data-i18n="githubButton">Otwórz na GitHubie</a>
                         </div>
                     </div>
                 </div>
@@ -797,11 +846,9 @@
                             <img class="card-img-top" src="images/web-scraper.png" alt="Card image cap" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bolder">OLX Web Scraper</h5>
-                            <p class="card-subtitle">
-                                Chcesz zacząć udzielać korepetycji i zastanawiasz się jaka stawka jest odpowiednia? 
-                                A może dostałeś nietrafiony prezent i chcesz dowiedzieć się za jaką kwotę wystawić go na sprzedaż? 
-                                Porównaj ceny na OLX z użyciem mojego autorskiego narzędzia.
+                            <h5 class="card-title fw-bolder" data-i18n="projectOlxTitle">OLX Web Scraper</h5>
+                            <p class="card-subtitle" data-i18n="projectOlxDescription">
+                                Chcesz zacząć udzielać korepetycji i zastanawiasz się jaka stawka jest odpowiednia? A może dostałeś nietrafiony prezent i chcesz dowiedzieć się za jaką kwotę wystawić go na sprzedaż? Porównaj ceny na OLX z użyciem mojego autorskiego narzędzia.
                             </p>
                             <div class="card-icons-container pt-2">
                                 <a href="https://www.python.org/" target="_blank" class="btn d-inline ps-0">
@@ -822,7 +869,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/RetinaDetect" class="btn check-me-out-button">Otwórz na GitHubie</a>
+                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/RetinaDetect" class="btn check-me-out-button" data-i18n="githubButton">Otwórz na GitHubie</a>
                         </div>
                     </div>
                 </div>
@@ -835,11 +882,9 @@
                             <img class="card-img-top" src="images/run-lift-merged.png" alt="Card image cap" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bolder">Run Lift App</h5>
-                            <p class="card-subtitle">
-                                Słyszałaś/eś kiedyś o aplikacji mobilnej, w której sprawdzisz pogodę
-                                i zmierzysz czasy okrążeń na bieżni? Ja też nie, dlatego zdecydowałem się taką stworzyć
-                                jako projekt zaliczeniowy na przedmiot Aplikacje Mobilne.
+                            <h5 class="card-title fw-bolder" data-i18n="projectRunLiftTitle">Run Lift App</h5>
+                            <p class="card-subtitle" data-i18n="projectRunLiftDescription">
+                                Słyszałaś/eś kiedyś o aplikacji mobilnej, w której sprawdzisz pogodę i zmierzysz czasy okrążeń na bieżni? Ja też nie, dlatego zdecydowałem się taką stworzyć jako projekt zaliczeniowy na przedmiot Aplikacje Mobilne.
                             </p>
                             <div class="card-icons-container pt-2">
                                 <a href="https://developer.android.com/compose" target="_blank" class="btn d-inline ps-0">
@@ -861,7 +906,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/RunLift" class="btn check-me-out-button">Otwórz na GitHubie</a>
+                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/RunLift" class="btn check-me-out-button" data-i18n="githubButton">Otwórz na GitHubie</a>
                         </div>
                     </div>
                 </div>
@@ -873,8 +918,8 @@
                             <img class="card-img-top" src="images/remote-controlled-car.jpg" alt="Card image cap" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bolder">Zdalnie Sterowany Samochód</h5>
-                            <p class="card-subtitle">
+                            <h5 class="card-title fw-bolder" data-i18n="projectCarTitle">Zdalnie Sterowany Samochód</h5>
+                            <p class="card-subtitle" data-i18n="projectCarDescription">
                                 Ten projekt pomógł mi lepiej zrozumieć Systemy Wbudowane. Wykorzystałem budżetowy mikrokontroler - Raspberry Pi Pico do stworzenia projektu łączącego wiedzę z dziedziny Informatyki i elektroniki.
                             </p>
                             <div class="card-icons-container pt-2">
@@ -888,7 +933,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/RemoteControlledCar" class="btn check-me-out-button">Otwórz na GitHubie</a>
+                            <a target="_blank" href="https://github.com/HubertLuszkiewicz/RemoteControlledCar" class="btn check-me-out-button" data-i18n="githubButton">Otwórz na GitHubie</a>
                         </div>
                     </div>
                 </div>
@@ -898,17 +943,17 @@
 
             </div>     
             <div class="d-flex justify-content-center py-3 ">
-                <a href="https://github.com/HubertLuszkiewicz"  target="_blank" class="btn check-me-out-button mt-2 display-3" href="#projects">Zobacz pozostałe projekty na GitHubie</a>
+                <a href="https://github.com/HubertLuszkiewicz"  target="_blank" class="btn check-me-out-button mt-2 display-3" href="#projects" data-i18n="moreProjects">Zobacz pozostałe projekty na GitHubie</a>
             </div>
         </div>
     </section>
 
     
 
-    <section class="contact d-flex align-items-start bg-black" id="contact" style="box-shadow: 0px 2px 5px #ff5231;">
+    <section class="contact d-flex align-items-start bg-black" id="contact" style="box-shadow: 0px 2px 5px rgba(86, 199, 178, 0.35);">
         <div class="container text-start text-white">
             <div class="d-flex justify-content-center py-4">
-                <h1 class="section-header display-5">Kontakt<span id="pro-text"></span></h1>
+                <h1 class="section-header display-5" data-i18n="contactHeading">Kontakt<span id="pro-text"></span></h1>
             </div>
 
             <div class="row justify-content-around align-items-center">
@@ -916,27 +961,27 @@
                 <div class="col-sm-12 col-lg-5">
                     <div>
                         <h4 style="font-weight: bold;">
-                            Skontaktuj się ze mną
+                            <span data-i18n="contactSubheading">Skontaktuj się ze mną</span>
                         </h4>
-                        <p>Odpowiem tak szybko jak to możliwe :)</p>
+                        <p data-i18n="contactIntro">Odpowiem tak szybko jak to możliwe :)</p>
                     
                     </div>
                     <form action="https://api.web3forms.com/submit" method="post" class="d-flex flex-column">
                         <input type="hidden" name="access_key" value="bbd5e9fe-a754-40d1-bf91-fc4d0bc8fdff">
                         <div class="form-group mb-3">
                             <!-- <label for="name">Imię</label> -->
-                            <input type="text" name="Imię" class="form-control" id="name" placeholder="Imię">
+                            <input type="text" name="Imię" class="form-control" id="name" placeholder="Imię" data-i18n-placeholder="namePlaceholder">
                         </div>
                         <div class="form-group mb-3">
                             <!-- <label for="email">Adres email</label> -->
-                            <input type="email" name="Email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email">
+                            <input type="email" name="Email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email" data-i18n-placeholder="emailPlaceholder">
                         </div>
                         <div class="form-group mb-3">
                             <!-- <label for="textarea">Jak mogę Ci pomóc?</label> -->
-                            <textarea name="Wiadomość" class="form-control" id="textarea" rows="5" placeholder="Twoja wiadomość..."></textarea>
+                            <textarea name="Wiadomość" class="form-control" id="textarea" rows="5" placeholder="Twoja wiadomość..." data-i18n-placeholder="messagePlaceholder"></textarea>
                         </div>
                         <input type="hidden" name="redirect" value="https://hublus.z36.web.core.windows.net/thanks.html">
-                        <button type="submit" class="btn check-me-out-button">Wyślij</button>
+                        <button type="submit" class="btn check-me-out-button" data-i18n="sendButton">Wyślij</button>
                     </form>
                     <div class="mt-3 mt-lg-0 justify-content-center d-flex py-3">
                         <div style="flex: 1" class="d-flex justify-content-center p-0 social-media-icon-container">
@@ -966,13 +1011,6 @@
                     </div>
                 </div>
                 
-                <div class="col-sm-6 col-lg-4 justify-content-end d-none d-lg-flex flex-column">
-                    <div style="width: 100%; border-radius: 30%; overflow: hidden;" class="mb-4">
-                        <img src="images/ad7d89c7-6344-45e5-989e-704fe97f802b.jpg" alt="" style="width: 100%; object-fit: cover; object-position: center; aspect-ratio: 1 / 1;">
-                    </div>
-                    
-                </div>
-
             </div>
         </div>
     </section>
@@ -982,22 +1020,22 @@
         <div class="container py-3">
             <div class="row">
                 <div class="col-md-5 order-3 order-md-1">
-                    <p class="footer-name text-white">© 2025 Hubert Łuszkiewicz</p>
+                    <p class="footer-name text-white">© 2026 Hubert Łuszkiewicz</p>
                     <p class="footer-email text-white">hluszkiewicz@gmail.com</p>
                 </div>
                 <div class="col-md-4 d-flex flex-column align-items-start pb-2 order-2">
-                    <h5 class="text-white pt-3 pt-md-0 ">Social media</h5>
+                    <h5 class="text-white pt-3 pt-md-0 " data-i18n="socialHeading">Social media</h5>
                     <a target="_blank" class="btn ps-0 text-white" href="https://github.com/HubertLuszkiewicz">Github</a>
                     <a target="_blank" class="btn ps-0 text-white" href="https://www.linkedin.com/in/hubert-%C5%82uszkiewicz-39b8a427b/">LinkedIn</a>
                     <a target="_blank" class="btn ps-0 text-white" href="https://www.facebook.com/profile.php?id=100006261753202">Facebook</a>
                     <a href="https://www.strava.com/athletes/91354575" target="_blank" class="btn ps-0 text-white">Strava</a>
                 </div>
                 <div class="col-md-3 d-flex flex-column align-items-start order-1 order-md-3">
-                    <h5 class="text-white">Nawigacja</h5>
-                    <a class="home-button nav-link nav-text btn text-white py-1" href="#home">Strona główna</a>
-                    <a class="about-button nav-link btn nav-text text-white py-1" href="#about">O mnie</a>
-                    <a class="projects-button nav-link btn nav-text text-white py-1" href="#projects">Projekty</a>
-                    <a class="contact-button nav-link btn nav-text text-white py-1" href="#contact">Kontakt</a>
+                    <h5 class="text-white" data-i18n="navigationHeading">Nawigacja</h5>
+                    <a class="home-button nav-link nav-text btn text-white py-1" href="#home" data-i18n="navHome">Strona główna</a>
+                    <a class="about-button nav-link btn nav-text text-white py-1" href="#about" data-i18n="navAbout">O mnie</a>
+                    <a class="projects-button nav-link btn nav-text text-white py-1" href="#projects" data-i18n="navProjects">Projekty</a>
+                    <a class="contact-button nav-link btn nav-text text-white py-1" href="#contact" data-i18n="navContact">Kontakt</a>
                 </div>
             </div>
         </div>
@@ -1033,16 +1071,7 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             }
         });
     </script>
-    <script>
-        const languageButton = document.querySelector('.language-button');
-        languageButton.addEventListener('click', () => {
-            if (languageButton.textContent === '🇵🇱') {
-                languageButton.textContent = '🇬🇧'
-            } else {
-                languageButton.textContent = '🇵🇱'
-            }
-        })
-    </script>
+    <script src="translations.js"></script>
     <script>   
         const navLinks = document.querySelectorAll('.nav-link');
         const navbarToggler = document.querySelector('.navbar-toggler');
@@ -1096,90 +1125,6 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             
         })
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r123/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.21/vanta.net.min.js"></script>
-    <script>
-
-        // const home_bg = VANTA.NET({
-        // el: "#home",
-        // color: 0xff5231,
-        // backgroundColor: 0x141414,
-        // points: 11.00,
-        // maxDistance: 10.00,
-        // spacing: 20.00,
-        // mouseControls: false,
-        // touchControls: false
-        // });
-
-        const projects_bg = VANTA.NET({
-        el: "#projects",
-        color: 0xff5231,
-        backgroundColor: 0x141414,
-        points: 11.00,
-        maxDistance: 10.00,
-        spacing: 20.00,
-        mouseControls: false,
-        touchControls: false
-        });
-
-        const about_bg = VANTA.NET({
-        el: "#about",
-        color: 0xff5231,
-        backgroundColor: 0x141414,
-        points: 11.00,
-        maxDistance: 10.00,
-        spacing: 20.00,
-        mouseControls: false,
-        touchControls: false
-        });
-
-        const contact_bg = VANTA.NET({
-        el: "#contact",
-        color: 0xff5231,
-        backgroundColor: 0x141414,
-        points: 11.00,
-        maxDistance: 10.00,
-        spacing: 20.00,
-        mouseControls: false,
-        touchControls: false
-        });
-
-        const getVantaColors = () => {
-            const rootStyles = getComputedStyle(document.documentElement);
-            const vantaColorHex = rootStyles.getPropertyValue('--main-color').trim();
-            const vantaBgColorHex = rootStyles.getPropertyValue('--bg-color').trim();
-
-            const vantaColor = parseInt(vantaColorHex.replace('#', '0x'));
-            const vantaBgColor = parseInt(vantaBgColorHex.replace('#', '0x'));
-
-            return {
-                color: vantaColor,
-                backgroundColor: vantaBgColor
-            }
-        }
-
-        const themeButton = document.querySelector('.theme-button');
-        const html = document.documentElement;
-        themeButton.addEventListener('click', () => {
-
-            const colors = getVantaColors();
-            console.log(colors)
-            home_bg.setOptions(colors);
-            projects_bg.setOptions(colors);
-            about_bg.setOptions(colors);
-            contact_bg.setOptions(colors);
-            
-            if (html.getAttribute('theme') === 'dark') {
-                html.setAttribute('theme', 'light')
-                themeButton.textContent = '☀️';
-            } else {
-                html.setAttribute('theme', 'dark')
-                themeButton.textContent = '🌙';
-            }
-        })
-        
-    </script>
-
     <script>
         
         const homeSection = document.querySelector('#home')
@@ -1195,15 +1140,14 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             const translateValue = Math.min(scrollPosition, overlapHeight);
             projectsSection.style.transform = `translateY(${-translateValue}px)`;
 
-            const textMovePercentage = scrollPosition * 0.1;
+            const textMoveValue = Math.min(scrollPosition * 0.16, 44);
+            const textOpacity = Math.max(1 - scrollPosition / 260, 0.35);
 
-            greetingContainer.style.transform = `translateX(${-textMovePercentage}%)`;
-            // helloText.forEach(t => {
-            //     t.style.transform = `translateX(${-textMovePercentage}%)`;
-            // })
+            greetingContainer.style.transform = `translateY(${-textMoveValue}px)`;
+            greetingContainer.style.opacity = textOpacity;
             
             // softwareEngineerText.forEach(s => {
-            //     s.style.transform = `translateX(${-textMovePercentage}%)`;
+            //     s.style.transform = `translateY(${-textMoveValue}px)`;
             // })
             
 
